@@ -5,7 +5,7 @@ const { resolve } = require('path');
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    resolve(__dirname, 'src', 'app.js'),
+    resolve(__dirname, 'src', 'App.js'),
   ],
   output: {
     filename: '[name].[hash].js',

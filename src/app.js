@@ -1,8 +1,8 @@
 import './styles.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import Index from './components/Index';
 
 const root = document.getElementById('app-container');
 
-ReactDOM.render(<App />, root)
+ReactDOM.render(<Index />, root)
