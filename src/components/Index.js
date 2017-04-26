@@ -1,7 +1,7 @@
 import React from 'React';
 import ZipForm from './ZipForm';
 
-class App extends React.Component {
+class Index extends React.Component {
   render () {
     return <div className="app">
       <ZipForm />
@@ -9,4 +9,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Index;
