@@ -1,6 +1,7 @@
 import React from 'React';
 import ZipForm from './ZipForm';
 import { get } from 'axios';
+import WeatherList from './WeatherList';
 
 class Index extends React.Component {
   constructor(props) {
@@ -32,8 +33,11 @@ class Index extends React.Component {
   }
 
   render () {
+    const { dates } = this.state;
+
     return <div className="app">
       <ZipForm onSubmit={this.onFormSubmit} />
+      <WeatherList days={dates} />
     </div>;
   }
 }
