@@ -1,4 +1,5 @@
-import React, { Component } from 'React, { Component }';
+import React, { Component } from 'React';
+import WeatherListItem from './WeatherListItem';
 
 class WeatherList extends Component {
 
@@ -7,8 +8,15 @@ class WeatherList extends Component {
 
     return (
       <div className="weather-list flex-parent">
-
+        {days.map((day) =>
+          <WeatherListItem
+            key={day.dt}
+            day={day}
+          />
+        )}
       </div>
     );
   }
 }
+
+export default WeatherList;
