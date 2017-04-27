@@ -1,7 +1,7 @@
 {
   "scripts": {
     "serve:webpack": "webpack-dev-server --hot --inline --content-base ./src",
-    "serve:json": "json-server db.json",
+    "serve:json": "json-server db.json ---port 3004",
     "start": "concurrently \"yarn serve:webpack\" \"yarn serve:json\""
   },
   "devDependencies": {
