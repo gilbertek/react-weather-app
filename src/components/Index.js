@@ -2,6 +2,7 @@ import React from 'React';
 import ZipForm from './ZipForm';
 import { get } from 'axios';
 import WeatherList from './WeatherList';
+import CurrentDay from './CurrentDay';
 
 class Index extends React.Component {
   constructor(props) {
@@ -38,12 +39,15 @@ class Index extends React.Component {
   }
 
   render () {
-    const { dates } = this.state;
+    const { dates, city, selectedDate } = this.state;
 
-    return <div className="app">
-      <ZipForm onSubmit={this.onFormSubmit} />
-      <WeatherList days={dates} onDayClicked={this.onDayClicked} />
-    </div>;
+    return(
+      <div className="app">
+        <ZipForm onSubmit={this.onFormSubmit} />
+        <WeatherList days={dates} onDayClicked={this.onDayClicked} />
+        {selectedDate !== null && <CurrentDay day={dates[selectedDate]} city={city} />}
+      </div>
+    );
   }
 }
 
