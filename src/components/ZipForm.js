@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ZipForm extends Component {
   constructor(props) {
@@ -19,34 +20,35 @@ class ZipForm extends Component {
   }
 
   submitZipCode(e) {
-    e.preventDefault();
-
-    const { zipcode } = this.state;
     const { onSubmit } = this.props;
 
-    onSubmit(zipcode);
-    this.setState({ zipcode: '' });
+    onSubmit(e.target.value);
  }
 
   render() {
     return (
       <div className='zip-form'>
-        <form onSubmit={this.submitZipCode}>
-          <label htmlFor='zipcode'>Zip Code</label>
-          <input
-            className='form-control'
-            type='input'
-            name='zipcode'
-            value={this.state.zipcode}
-            onInput={this.inputUpdated} />
-          <button
-            type='submit'
-            className='btn btn-success'>
-            Get Forecast!</button>
+        <form>
+          <label htmlFor="zipcode">Zip Code</label>
+          <select onChange={this.submitZipCode}>
+            <option value="">Select a zip</option>
+            {this.props.zips.map(zip =>
+              <option key={zip} value={zip}>{zip}</option>
+            )}
+          </select>
         </form>
       </div>
     );
   }
 }
+
+ZipForm.propTypes = {
+  zips:     PropTypes.arrayOf(PropTypes.number).isRequired,
+  onSubmit: PropTypes.func
+};
+
+ZipForm.defaultProps = {
+  onSubmit: () => {}
+};
 
 export default ZipForm;

@@ -1,7 +1,6 @@
 import React, { Component } from 'React';
 
 class CurrentDay extends Component {
-  
 
   render() {
     const {

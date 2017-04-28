@@ -9,9 +9,10 @@ class Index extends React.Component {
     super(props);
 
     this.state = {
-      zipcode: '',
-      city: {},
-      dates: [],
+      weatherData:  [],
+      zipcode:      '',
+      city:         {},
+      dates:        [],
       selectedDate: null
     };
 
@@ -20,18 +21,33 @@ class Index extends React.Component {
     this.onDayClicked = this.onDayClicked.bind(this);
   }
 
-  onFormSubmit(zipcode) {
-    get(`http://localhost:3004/weather/${zipcode}`)
-      .then(({ data }) => {
-        const { city, list: dates } = data;
+  componentDidMount() {
+    get('http://localhost:3004/weather')
+      .then(({ data: weatherData }) => {
+        this.setState({ weatherData });
+      });
+  }
 
-        this.setState({
-          zipcode,
-          city,
-          dates,
-          selectedDate: null
-        });
-    });
+  onFormSubmit(zip) {
+    const zipcode = zip * 1;
+    const { weatherData } = this.state;
+
+    const data =  weatherData.find(wd => wd.id === zipcode);
+    const { city, list: dates } = data;
+
+    this.setState({ zipcode, city, dates, selectedDate: null });
+
+    // get(`http://localhost:3004/weather/${zipcode}`)
+    //   .then(({ data }) => {
+    //     const { city, list: dates } = data;
+    //
+    //     this.setState({
+    //       zipcode,
+    //       city,
+    //       dates,
+    //       selectedDate: null
+    //     });
+    // });
   }
 
   onDayClicked(dayIndex) {
@@ -39,11 +55,12 @@ class Index extends React.Component {
   }
 
   render () {
-    const { dates, city, selectedDate } = this.state;
+    const { weatherData, dates, city, selectedDate } = this.state;
+    const zips = weatherData.map(w => w.id);
 
     return(
       <div className="app">
-        <ZipForm onSubmit={this.onFormSubmit} />
+        <ZipForm zips={zips} onSubmit={this.onFormSubmit} />
         <WeatherList days={dates} onDayClicked={this.onDayClicked} />
         {selectedDate !== null && <CurrentDay day={dates[selectedDate]} city={city} />}
       </div>
